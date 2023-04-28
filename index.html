@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="shortcut icon" href="favicon.svg" type="image/x-icon" />
+    <title>Kiril - Lotin</title>
+    <meta charset="utf-8" />
+
+    <style>
+      body {
+        background-color: #f6f7fa;
+      }
+
+      .container {
+        width: 200px;
+      }
+
+      .container textarea {
+        width: 100%;
+      }
+
+      #convertedTextBlock {
+        cursor: pointer;
+        margin: 10px 0;
+      }
+
+      #title {
+        font-size: 20px;
+        display: flex;
+        cursor: pointer;
+      }
+
+      #title small {
+        font-size: 12px;
+      }
+
+      #title img {
+        width: 15px;
+      }
+
+      #title span {
+        flex-grow: 1;
+      }
+
+      #copyImg {
+        display: none;
+        width: 15px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h2 id="title">
+        <span> <span id="from"> </span> <small id="to"></small> </span>
+
+        <img src="./up-down-arrows-icon.svg" width="20px" alt="" />
+      </h2>
+      <textarea
+        id="text"
+        rows="5"
+        placeholder="Biror matn yozing (lotincha)"
+      ></textarea>
+
+      <h3 id="convertedTextBlock">
+        <span id="convertedText"></span>
+        <img src="./copy.svg" id="copyImg" alt="" />
+      </h3>
+    </div>
+  </body>
+  <script type="module" src="script.js"></script>
+</html>

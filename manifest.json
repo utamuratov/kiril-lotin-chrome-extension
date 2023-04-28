@@ -1,0 +1,11 @@
+{
+    "name": "Kiril-Lotin",
+    "version": "1.0.0",
+    "description": "O'zbek tilidagi matnni kiril dan lotinga, lotindan kirilga o'giradi",
+    "manifest_version": 3,
+    "author": "Odilbek Utamuratov",
+    "action": {
+        "default_popup": "index.html",
+        "default_title": "Kiril-Lotin"
+    }
+}
