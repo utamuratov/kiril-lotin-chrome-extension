@@ -1,9 +1,7 @@
 import { kirillga } from "./kril-to-lotin.js";
 
-const KIRIL = "Kiril";
+const KIRIL = "Cyrillic";
 const LATIN = "Latin";
-const PLACEHOLDER_LATIN = "Biror matn yozing (lotincha)";
-const PLACEHOLDER_KIRIL = "Бирор матн ёзинг (кирилча)";
 let isLatinKiril = true;
 
 (function test() {
@@ -41,13 +39,11 @@ function changeConverType(latinToKiril = isLatinKiril) {
   if (isLatinKiril) {
     from.innerText = LATIN;
     to.innerText = KIRIL;
-    text.placeholder = PLACEHOLDER_LATIN;
     return;
   }
 
   from.innerText = KIRIL;
   to.innerText = LATIN;
-  text.placeholder = PLACEHOLDER_KIRIL;
 }
 
 document
