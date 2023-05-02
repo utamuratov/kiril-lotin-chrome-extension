@@ -3,28 +3,45 @@ import { lotinga } from "./kril-to-lotin.js";
 
 const KIRIL = "Cyrillic";
 const LATIN = "Latin";
+const PLACEHOLDER_LATIN = "Latin";
+const PLACEHOLDER_CYRILLIC = "Cyrillic";
 let isLatinKiril = true;
 
-(function test() {
+// INITIALIZE
+(function init() {
   changeConverType();
+
+  const params = new Proxy(new URLSearchParams(window.location.search), {
+    get: (searchParams, prop) => searchParams.get(prop),
+  });
+  const textFromQueryParam = params.text;
+
+  const text = document.getElementById("text");
+  text.value = textFromQueryParam;
+  convert(text.value);
 })();
 
-// LISTEN TEXT CHANGE
-function onClickConvert(text) {
-  const convertedText = document.getElementById("convertedText");
-  convertedText.innerText = isLatinKiril ? kirillga(text) : lotinga(text);
+// CONVERT TEXT
+function convert(
+  text,
+  convertedText = document.getElementById("convertedText"),
+  latinKiril = isLatinKiril
+) {
+  convertedText.value = latinKiril ? kirillga(text) : lotinga(text);
   const copyImg = document.getElementById("copyImg");
-  if (text.length) {
-    copyImg.style.display = "inline-block";
-    return;
+
+  if (copyImg) {
+    if (text.length) {
+      copyImg.style.display = "inline-block";
+      return;
+    }
+    copyImg.style.display = "none";
   }
-  copyImg.style.display = "none";
 }
 
 // COPY TO CLIPBOARD
-function copyToClipboard() {
-  const convertedText = document.getElementById("convertedText");
-  navigator.clipboard.writeText(convertedText.innerText);
+function copyToClipboard(element) {
+  navigator.clipboard.writeText(element.value);
 }
 
 /**
@@ -42,27 +59,45 @@ function changeConverType(latinToKiril = isLatinKiril) {
   const covertedText = document.getElementById("convertedText");
 
   const reserve = text.value;
-  text.value = covertedText.innerText;
-  convertedText.innerText = reserve;
+  text.value = covertedText.value;
+  convertedText.value = reserve;
 
   if (isLatinKiril) {
     from.innerText = LATIN;
     to.innerText = KIRIL;
+    text.placeholder = PLACEHOLDER_LATIN;
+    convertedText.placeholder = PLACEHOLDER_CYRILLIC;
     return;
   }
 
   from.innerText = KIRIL;
   to.innerText = LATIN;
+  text.placeholder = PLACEHOLDER_CYRILLIC;
+  convertedText.placeholder = PLACEHOLDER_LATIN;
 }
 
 document
   .getElementById("text")
-  .addEventListener("input", (e) => onClickConvert(e.target.value));
+  .addEventListener("input", (e) => convert(e.target.value));
 
 document
-  .getElementById("convertedTextBlock")
-  .addEventListener("click", copyToClipboard);
+  .getElementById("convertedText")
+  .addEventListener("input", (e) =>
+    convert(e.target.value, document.getElementById("text"), !isLatinKiril)
+  );
 
 document
-  .getElementById("title")
+  .getElementById("textCopy")
+  .addEventListener("click", () =>
+    copyToClipboard(document.getElementById("text"))
+  );
+
+document
+  .getElementById("convertedTextCopy")
+  .addEventListener("click", () =>
+    copyToClipboard(document.getElementById("convertedText"))
+  );
+
+document
+  .getElementById("switcher")
   .addEventListener("click", () => changeConverType(!isLatinKiril));

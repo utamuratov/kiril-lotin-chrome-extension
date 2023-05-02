@@ -13,18 +13,12 @@
         width: 280px;
       }
 
-      .container textarea {
-        width: 100%;
-      }
-
-      #convertedTextBlock {
-        cursor: pointer;
-        margin: 10px 0;
-      }
-
       #title {
         font-size: 20px;
         display: flex;
+      }
+
+      #switcher {
         cursor: pointer;
       }
 
@@ -40,9 +34,55 @@
         flex-grow: 1;
       }
 
-      #copyImg {
-        display: none;
+      .main {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+      }
+
+      .main div {
+        flex: 1;
+        position: relative;
+      }
+
+      .main div textarea {
+        width: 99%;
+        resize: unset;
+      }
+
+      .main div img {
         width: 15px;
+        position: absolute;
+        bottom: 6px;
+        right: 0;
+        cursor: pointer;
+      }
+
+      @media (min-width: 500px) {
+        #title {
+          font-size: 24px;
+        }
+
+        #title small {
+          font-size: 16px;
+        }
+
+        .container {
+          width: auto;
+        }
+
+        .main {
+          flex-direction: row;
+        }
+
+        textarea {
+          height: 300px;
+          font-size: 16px;
+        }
+        .main div img {
+          bottom: 10px;
+          right: 5px;
+        }
       }
     </style>
   </head>
@@ -52,19 +92,29 @@
         <span> <span id="from"> </span> <small id="to"></small> </span>
 
         <img
+          id="switcher"
           src="./up-down-arrows-icon.svg"
           width="20px"
           alt="switcher"
           title="Switch coverting type"
         />
       </h2>
-      <textarea id="text" rows="6"></textarea>
 
-      <div style="max-height: 200px; overflow: auto">
-        <h3 id="convertedTextBlock">
-          <span id="convertedText"></span>
-          <img src="./copy.svg" id="copyImg" alt="copy" title="Copy text" />
-        </h3>
+      <div class="main">
+        <div>
+          <textarea id="text" rows="6"></textarea>
+          <img id="textCopy" src="./copy.svg" alt="copy" title="Copy text" />
+        </div>
+
+        <div>
+          <textarea id="convertedText" rows="6"></textarea>
+          <img
+            id="convertedTextCopy"
+            src="./copy.svg"
+            alt="copy"
+            title="Copy text"
+          />
+        </div>
       </div>
     </div>
   </body>
