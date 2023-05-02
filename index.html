@@ -10,7 +10,7 @@
       }
 
       .container {
-        width: 250px;
+        width: 280px;
       }
 
       .container textarea {
@@ -58,12 +58,14 @@
           title="Switch coverting type"
         />
       </h2>
-      <textarea id="text" rows="5"></textarea>
+      <textarea id="text" rows="6"></textarea>
 
-      <h3 id="convertedTextBlock">
-        <span id="convertedText"></span>
-        <img src="./copy.svg" id="copyImg" alt="copy" title="Copy text" />
-      </h3>
+      <div style="max-height: 200px; overflow: auto">
+        <h3 id="convertedTextBlock">
+          <span id="convertedText"></span>
+          <img src="./copy.svg" id="copyImg" alt="copy" title="Copy text" />
+        </h3>
+      </div>
     </div>
   </body>
   <script type="module" src="script.js"></script>
