@@ -1,4 +1,5 @@
 import { kirillga } from "./kril-to-lotin.js";
+import { lotinga } from "./kril-to-lotin.js";
 
 const KIRIL = "Cyrillic";
 const LATIN = "Latin";
@@ -8,9 +9,10 @@ let isLatinKiril = true;
   changeConverType();
 })();
 
+// LISTEN TEXT CHANGE
 function onClickConvert(text) {
   const convertedText = document.getElementById("convertedText");
-  convertedText.innerText = kirillga(text);
+  convertedText.innerText = isLatinKiril ? kirillga(text) : lotinga(text);
   const copyImg = document.getElementById("copyImg");
   if (text.length) {
     copyImg.style.display = "inline-block";
@@ -19,11 +21,18 @@ function onClickConvert(text) {
   copyImg.style.display = "none";
 }
 
+// COPY TO CLIPBOARD
 function copyToClipboard() {
   const convertedText = document.getElementById("convertedText");
   navigator.clipboard.writeText(convertedText.innerText);
 }
 
+/**
+ *
+ * SWITCH COVERT TYPE
+ * @param {*} latinToKiril
+ * @returns
+ */
 function changeConverType(latinToKiril = isLatinKiril) {
   isLatinKiril = latinToKiril;
 
