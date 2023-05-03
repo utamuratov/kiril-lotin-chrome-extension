@@ -58,9 +58,8 @@ function changeConverType(latinToKiril = isLatinKiril) {
   const text = document.getElementById("text");
   const covertedText = document.getElementById("convertedText");
 
-  const reserve = text.value;
   text.value = covertedText.value;
-  convertedText.value = reserve;
+  convert(text.value);
 
   if (isLatinKiril) {
     from.innerText = LATIN;
