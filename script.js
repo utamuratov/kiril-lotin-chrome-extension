@@ -1,5 +1,4 @@
-import { kirillga } from "./kril-to-lotin.js";
-import { lotinga } from "./kril-to-lotin.js";
+import { toCyrillic, toLatin } from "./cyrillic-to-latin.js";
 
 const KIRIL = "Cyrillic";
 const LATIN = "Latin";
@@ -27,7 +26,7 @@ function convert(
   convertedText = document.getElementById("convertedText"),
   latinKiril = isLatinKiril
 ) {
-  convertedText.value = latinKiril ? kirillga(text) : lotinga(text);
+  convertedText.value = latinKiril ? toCyrillic(text) : toLatin(text);
   const copyImg = document.getElementById("copyImg");
 
   if (copyImg) {
