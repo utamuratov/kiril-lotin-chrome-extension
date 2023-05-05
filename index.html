@@ -16,10 +16,17 @@
       #title {
         font-size: 20px;
         display: flex;
+        margin-bottom: 0;
+      }
+
+      label.auto {
+        margin-bottom: 16px;
+        display: inline-block;
       }
 
       #switcher {
         cursor: pointer;
+        padding: 0 10px;
       }
 
       #title small {
@@ -61,6 +68,7 @@
       @media (min-width: 500px) {
         #title {
           font-size: 24px;
+          width: max-content;
         }
 
         #title small {
@@ -99,6 +107,10 @@
           title="Switch coverting type"
         />
       </h2>
+      <label class="auto">
+        Auto
+        <input type="checkbox" name="auto" id="auto" checked />
+      </label>
 
       <div class="main">
         <div>

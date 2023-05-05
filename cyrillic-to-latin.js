@@ -1,7 +1,4 @@
-/* code by Uroljon Khidirboev */
-
-const alpha = [
-  //kirill-lotin uchun lotin alfaviti
+const LATIN_LETTERS = [
   "A",
   "B",
   "V",
@@ -78,8 +75,7 @@ const alpha = [
   "o'",
 ];
 
-const alphaLatin = [
-  //lotin-kirill uchun lotin alfaviti
+const HELPER_LATIN_LETTERS = [
   "A",
   "B",
   "V",
@@ -156,7 +152,7 @@ const alphaLatin = [
   "‡",
 ];
 
-const alphaRus = [
+const CYRILLIC_LETTERS = [
   "А",
   "Б",
   "В",
@@ -290,9 +286,9 @@ export function toCyrillic(latinText) {
   function latinToCyrillic(string) {
     let cyrillic = "";
     for (var i = 0; i < string.length; i++) {
-      const index = alphaLatin.indexOf(string[i]);
+      const index = HELPER_LATIN_LETTERS.indexOf(string[i]);
       if (index >= 0) {
-        cyrillic += alphaRus[index];
+        cyrillic += CYRILLIC_LETTERS[index];
         continue;
       }
 
@@ -427,9 +423,9 @@ export function toLatin(cyrillicText) {
   function cyrillicToLatin(string) {
     let latin = "";
     for (var i = 0; i < string.length; i++) {
-      const index = alphaRus.indexOf(string[i]);
+      const index = CYRILLIC_LETTERS.indexOf(string[i]);
       if (index >= 0) {
-        latin += alpha[index];
+        latin += LATIN_LETTERS[index];
         continue;
       }
 
