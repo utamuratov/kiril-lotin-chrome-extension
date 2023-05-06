@@ -4,10 +4,41 @@ const TITLE_CYRILLIC = "Cyrillic";
 const TITLE_LATIN = "Latin";
 const PLACEHOLDER_LATIN = "Latin";
 const PLACEHOLDER_CYRILLIC = "Cyrillic";
-let isLatinKiril = true;
+const LOCAL_STORAGE_IS_LATIN_CYRILLIC = "isLatinCyrillic";
+const LOCAL_STORAGE_AUTO = "auto";
+
+function auto() {
+  const auto = localStorage.getItem(LOCAL_STORAGE_AUTO);
+  if (auto == undefined) {
+    setLocalStorageAuto(true);
+    return true;
+  }
+  return auto === "true";
+}
+
+function setLocalStorageAuto(auto) {
+  localStorage.setItem(LOCAL_STORAGE_AUTO, auto.toString());
+}
+
+function isLatinCyrillic() {
+  const isLatinCyrillic = localStorage.getItem(LOCAL_STORAGE_IS_LATIN_CYRILLIC);
+  if (isLatinCyrillic == undefined) {
+    setLocalStorageLatinKiril(true);
+    return true;
+  }
+  return isLatinCyrillic === "true";
+}
+
+function setLocalStorageLatinKiril(isLatinCyrillic) {
+  localStorage.setItem(
+    LOCAL_STORAGE_IS_LATIN_CYRILLIC,
+    isLatinCyrillic.toString()
+  );
+}
 
 // INITIALIZE
 (function init() {
+  document.getElementById("auto").checked = auto();
   changeConverType();
 
   const params = new Proxy(new URLSearchParams(window.location.search), {
@@ -24,24 +55,10 @@ let isLatinKiril = true;
 function convert(
   text,
   convertedText = document.getElementById("convertedText"),
-  latinKiril = isLatinKiril
+  latinKiril = isLatinCyrillic()
 ) {
-  changeConvertTypeAutomatic();
-
-  convertedText.value = latinKiril ? toCyrillic(text) : toLatin(text);
-  const copyImg = document.getElementById("copyImg");
-
-  if (copyImg) {
-    if (text.length) {
-      copyImg.style.display = "inline-block";
-      return;
-    }
-    copyImg.style.display = "none";
-  }
-
   function changeConvertTypeAutomatic() {
-    const auto = document.getElementById("auto");
-    if (!auto.checked) {
+    if (!auto()) {
       return;
     }
 
@@ -61,21 +78,34 @@ function convert(
     }
 
     if (cyrillicLettersCount > latinLettersCount && cyrillicLettersCount >= 3) {
-      if (isLatinKiril) {
-        isLatinKiril = false;
-        latinKiril = isLatinKiril;
-        changeSwitcher(isLatinKiril);
+      if (isLatinCyrillic()) {
+        latinKiril = false;
+        setLocalStorageLatinKiril(latinKiril);
+        changeSwitcher(latinKiril);
       }
     } else if (
       latinLettersCount > cyrillicLettersCount &&
       latinLettersCount >= 3
     ) {
-      if (!isLatinKiril) {
-        isLatinKiril = true;
-        latinKiril = isLatinKiril;
-        changeSwitcher(isLatinKiril);
+      if (!isLatinCyrillic()) {
+        latinKiril = true;
+        setLocalStorageLatinKiril(latinKiril);
+        changeSwitcher(latinKiril);
       }
     }
+  }
+
+  changeConvertTypeAutomatic();
+
+  convertedText.value = latinKiril ? toCyrillic(text) : toLatin(text);
+  const copyImg = document.getElementById("copyImg");
+
+  if (copyImg) {
+    if (text.length) {
+      copyImg.style.display = "inline-block";
+      return;
+    }
+    copyImg.style.display = "none";
   }
 }
 
@@ -108,8 +138,8 @@ function changeSwitcher(latinToKiril) {
  * @param {*} latinToKiril
  * @returns
  */
-function changeConverType(latinToKiril = isLatinKiril) {
-  isLatinKiril = latinToKiril;
+function changeConverType(latinToKiril = isLatinCyrillic()) {
+  setLocalStorageLatinKiril(latinToKiril);
   changeSwitcher(latinToKiril);
 
   const text = document.getElementById("text");
@@ -126,7 +156,7 @@ document
 document
   .getElementById("convertedText")
   .addEventListener("input", (e) =>
-    convert(e.target.value, document.getElementById("text"), !isLatinKiril)
+    convert(e.target.value, document.getElementById("text"), !isLatinCyrillic())
   );
 
 document
@@ -143,10 +173,12 @@ document
 
 document
   .getElementById("switcher")
-  .addEventListener("click", () => changeConverType(!isLatinKiril));
+  .addEventListener("click", () => changeConverType(!isLatinCyrillic()));
 
 document.getElementById("auto").addEventListener("change", () => {
-  if (document.getElementById("auto").checked) {
+  const auto = document.getElementById("auto").checked;
+  setLocalStorageAuto(auto);
+  if (auto) {
     convert(document.getElementById("text").value);
   }
 });
