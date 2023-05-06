@@ -19,6 +19,5 @@
     ],
     "background": {
         "service_worker": "background.js"
-    },
-    "update_url": "https://utamuratov.github.io/kiril-lotin-chrome-extension/updates.xml"
+    }
 }
