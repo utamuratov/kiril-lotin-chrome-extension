@@ -230,7 +230,23 @@ const CYRILLIC_LETTERS = [
 ];
 
 export function toCyrillic(latinText) {
+  function replaceQuotes() {
+    latinText = latinText.replace(/`/g, "'");
+    latinText = latinText.replace(/ʹ/g, "'");
+    latinText = latinText.replace(/ʻ/g, "'");
+    latinText = latinText.replace(/ʼ/g, "'");
+    latinText = latinText.replace(/ʽ/g, "'");
+    latinText = latinText.replace(/ˊ/g, "'");
+    latinText = latinText.replace(/ˋ/g, "'");
+    latinText = latinText.replace(/‘/g, "'");
+  }
+
   function replaceSpecialLetters() {
+    latinText = latinText.replace(/O\'/g, "Ў");
+    latinText = latinText.replace(/o\'/g, "ў");
+    latinText = latinText.replace(/G\'/g, "Ғ");
+    latinText = latinText.replace(/g\'/g, "ғ");
+
     latinText = latinText.replace(/Ye/g, "Е");
     latinText = latinText.replace(/YE/g, "Е");
     latinText = latinText.replace(/Yo/g, "Ё");
@@ -246,9 +262,6 @@ export function toCyrillic(latinText) {
     latinText = latinText.replace(/Ts/g, "Ц");
     latinText = latinText.replace(/TS/g, "Ц");
 
-    latinText = latinText.replace(/G\'/g, "Ғ");
-    latinText = latinText.replace(/O\'/g, "Ў");
-
     latinText = latinText.replace(/ye/g, "е");
     latinText = latinText.replace(/yo/g, "ё");
     latinText = latinText.replace(/ch/g, "ч");
@@ -256,19 +269,6 @@ export function toCyrillic(latinText) {
     latinText = latinText.replace(/yu/g, "ю");
     latinText = latinText.replace(/ya/g, "я");
     latinText = latinText.replace(/ts/g, "ц");
-    latinText = latinText.replace(/g\'/g, "ғ");
-    latinText = latinText.replace(/o\'/g, "ў");
-  }
-
-  function replaceQuotes() {
-    latinText = latinText.replace(/`/g, "'");
-    latinText = latinText.replace(/ʹ/g, "'");
-    latinText = latinText.replace(/ʻ/g, "'");
-    latinText = latinText.replace(/ʼ/g, "'");
-    latinText = latinText.replace(/ʽ/g, "'");
-    latinText = latinText.replace(/ˊ/g, "'");
-    latinText = latinText.replace(/ˋ/g, "'");
-    latinText = latinText.replace(/‘/g, "'");
   }
 
   function treatSpecialLetters(currentWord) {

@@ -1,6 +1,6 @@
 {
     "name": "Cyrillic-Latin",
-    "version": "1.2.1",
+    "version": "1.2.2",
     "description": "Converts Uzbek words from Cyrillic to Latin or from Latin to Cyrillic",
     "manifest_version": 3,
     "author": "Odilbek Utamuratov",
